@@ -1,0 +1,14 @@
+runpod>=1.6.0
+requests>=2.31.0
+safetensors>=0.4.3
+accelerate>=0.27.0
+transformers>=4.43.0
+diffusers>=0.30.0
+peft>=0.11.1
+huggingface_hub>=0.23.0
+bitsandbytes==0.43.3
+pillow>=10.2.0
+numpy>=1.26.4
+fastapi>=0.116.0
+uvicorn>=0.30.0
+psutil>=5.9.8
