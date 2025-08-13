@@ -11,12 +11,21 @@ RUN apt-get update && apt-get install -y \
     libgl1 \
     libglib2.0-0 \
     libopencv-dev \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip
 RUN pip install --upgrade pip
 
-# Install Python dependencies
+# Pre-install Kohya training scripts in the container
+WORKDIR /tmp
+RUN git clone https://github.com/bmaltais/kohya_ss.git sd-scripts && \
+    cd sd-scripts && \
+    pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir -e .
+
+# Install our application dependencies
+WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 

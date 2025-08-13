@@ -83,11 +83,8 @@ def train_lora(job_input):
         output_dir = Path("/tmp/lora_output")
         output_dir.mkdir(exist_ok=True)
         
-        # Install Kohya training scripts
-        if not os.path.exists("/tmp/sd-scripts"):
-            print("Installing Kohya training scripts...")
-            subprocess.run(["git", "clone", "https://github.com/kohya-ss/sd-scripts.git", "/tmp/sd-scripts"])
-            subprocess.run(["pip", "install", "-r", "/tmp/sd-scripts/requirements.txt"])
+        # Use pre-installed Kohya training scripts
+        print("Using pre-installed Kohya training scripts...")
         
         # Kohya training command
         cmd = [
