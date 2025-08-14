@@ -1,0 +1,5 @@
+# framework pins that avoid resolver churn
+fastapi==0.116.0
+starlette==0.37.2
+pydantic==2.8.2
+pydantic-core==2.20.1
