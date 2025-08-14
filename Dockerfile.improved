@@ -1,0 +1,48 @@
+# Improved Dockerfile for RunPod with proper health checks
+# Based on RunPod documentation recommendations
+
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create cache directory for models
+RUN mkdir -p /app/model_cache
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8000
+
+# Expose port
+EXPOSE 8000
+
+# Health check with proper timing based on RunPod recommendations
+# - interval=30s: Check every 30 seconds
+# - timeout=10s: Give health check 10 seconds to respond
+# - start-period=120s: Wait 2 minutes for model loading before first check
+# - retries=3: Allow 3 failures before marking unhealthy
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
+    CMD curl -f http://localhost:8000/readyz || exit 1
+
+# Alternative health check for environments without curl
+# HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
+#     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/readyz')" || exit 1
+
+# Start the application
+CMD ["python", "healthcheck-improvements.py"]
