@@ -1,6 +1,6 @@
 FROM pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime
 
-ARG BUILD_ID=5  # bump this number to force Docker to rebuild this layer and everything after
+ARG BUILD_ID=6  # bump this number to force Docker to rebuild this layer and everything after
 
 ENV PIP_NO_CACHE_DIR=1 \
     PIP_PREFER_BINARY=1 \
