@@ -36,15 +36,13 @@ RUN python -c "import torch, torchvision; from torchvision import _meta_registra
 # Install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip setuptools wheel && \
-    pip install -r requirements.txt && \
-    pip cache purge
+    pip install --no-cache-dir -r requirements.txt
 
 # Clone and setup Kohya SS training scripts
 RUN git clone https://github.com/kohya-ss/sd-scripts.git && \
     cd sd-scripts && \
     git checkout main && \
-    pip install -r requirements.txt && \
-    pip cache purge
+    pip install --no-cache-dir -r requirements.txt
 
 # Create necessary directories (no persistent cache)
 RUN mkdir -p /tmp/model_cache \
