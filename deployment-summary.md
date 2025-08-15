@@ -3,7 +3,7 @@
 ## Essential Files for Deployment
 
 ### Core Files (Required)
-1. **Dockerfile.production** - Docker image with PyTorch fix
+1. **Dockerfile** - Docker image with PyTorch fix (renamed from Dockerfile.production)
 2. **handler-production.py** - Main handler with compatibility checks
 3. **requirements.txt** - Dependencies with CUDA 12.4 wheels
 4. **enhanced-comfyui-config.py** - ComfyUI training optimization
